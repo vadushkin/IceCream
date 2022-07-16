@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>{% block title %} Title {% endblock %}</title>
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    <link rel="stylesheet" href="{% static 'js/style.js' %}">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css"
+          rel="stylesheet"
+          integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3"
+          crossorigin="anonymous"/>
+    <link rel="shortcut icon"
+          type="image/png"
+          href="{% static 'img/favicon.ico' %}"/>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
+            integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p"
+            crossorigin="anonymous">
+    </script>
+</head>
+<body>
+
+{% block header %}
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark g-5">
+    <div class="container">
+        <a class="navbar-brand p-0"
+           href="https://github.com/vadushkin"
+           target="_blank">
+            <img src="{% static 'img/favicon-32x32.png' %}" alt="Logo" width="30">
+        </a>
+        <button class="navbar-toggler"
+                type="button"
+                data-bs-toggle="collapse"
+                data-bs-target="#navbarNavAltMarkup"
+                aria-controls="navbarNavAltMarkup"
+                aria-expanded="false"
+                aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon">
+
+            </span>
+        </button>
+        <div class="collapse navbar-collapse"
+             id="navbarNavAltMarkup">
+            <div class="navbar-nav">
+                <a class="nav-link active"
+                   aria-current="page"
+                   href="{% url 'home' %}">
+                    Главная
+                </a>
+                <a class="nav-link active" aria-current="page" href="{% url 'cards' %}">
+                    Мороженые
+                </a>
+                <a class="nav-link active" aria-current="page" href="{% url 'categories' %}">
+                    Категории
+                </a>
+                <a class="nav-link active" aria-current="page" href="{% url 'add-icecream' %}">
+                    Добавить
+                </a>
+            </div>
+        </div>
+    </div>
+</nav>
+{% endblock %}
+
+<div class="content">
+    {% block content %}
+    {% endblock %}
+</div>
+
+{% if page_obj.has_other_pages %}
+<div class="demo">
+    <nav class="pagination-outer"
+         aria-label="Page navigation">
+        <ul class="pagination">
+            {% if page_obj.has_previous %}
+            <li class="page-item">
+                <a href="?page={{ page_obj.previous_page_number }}"
+                   tabindex="-1"
+                   class="page-link"
+                   aria-label="Previous">
+                    <span aria-hidden="true">
+                        «
+                    </span>
+                </a>
+            </li>
+            {% endif %}
+
+            {% for p in page_obj.paginator.page_range %}
+
+            {% if page_obj.number == p %}
+            <li class="page-item active">
+                <a class="page-link"
+                   href="?page={{ p }}">
+                    {{ p }}
+                    <span class="sr-only">
+                    </span>
+                </a>
+            </li>
+            {% elif p > page_obj.number|add:-3 and p < page_obj.number|add:3 %}
+            <li class="page-item">
+                <a href="?page={{ p }}"
+                   class="page-link">
+                    {{ p }}
+                </a>
+            </li>
+            {% endif %}
+
+            {% endfor %}
+
+            {% if page_obj.has_next %}
+            <li class="page-item">
+                <a href="?page={{ page_obj.next_page_number }}"
+                   class="page-link"
+                   aria-label="Next">
+                    <span aria-hidden="true">
+                        »
+                    </span>
+                </a>
+            </li>
+            {% endif %}
+        </ul>
+    </nav>
+</div>
+{% endif %}
+
+{% block footer %}
+<div class="footer">
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark g-5">
+        <div class="container">
+            <div class="collapse navbar-collapse">
+                <div class="navbar-nav footer">
+                    <p>© 2022 Частичное или полное копирование информации с данного сайта для распространения на других
+                        ресурсах, в том числе и бумажных, строго запрещено. Все тексты и изображения являются
+                        собственностью
+                        сайта
+                    </p>
+                </div>
+            </div>
+        </div>
+    </nav>
+</div>
+{% endblock %}
+
+</body>
+</html>

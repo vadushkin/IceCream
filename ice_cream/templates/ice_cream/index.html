@@ -1,0 +1,105 @@
+{% extends 'base.html' %}
+
+{% block title %}
+{{ title }}
+{% endblock %}
+
+{% block content %}
+<div class="photo">
+    <img src="https://img2.goodfon.ru/original/1920x500/5/2a/ice-cream-sweet-dessert-fresh-2639.jpg" alt="Мороженое">
+</div>
+<section>
+    <div class="header-h1 my-5">
+        <h1>Самые Популярные Мороженые</h1>
+    </div>
+    <div class="container my-5">
+        <div class="carousel">
+            <input type="radio" name="slides" checked="checked" id="slide-0">
+            <input type="radio" name="slides" id="slide-1">
+            <input type="radio" name="slides" id="slide-2">
+            <input type="radio" name="slides" id="slide-3">
+            <input type="radio" name="slides" id="slide-4">
+            <input type="radio" name="slides" id="slide-5">
+            <ul class="carousel__slides">
+                {% for product in icecream_popularity %}
+                <li class="carousel__slide">
+                    <figure>
+                        <div>
+                            <img src="{{ product.photo.url }}" width="800" height="450" alt="Popularity icecream">
+                        </div>
+                        <figcaption>
+                            {{ product.name }}
+                            <span class="credit">Количество просмотров: {{ product.views }}</span>
+                            <div class="frame">
+                                <a href="{% url 'icecream' product.pk %}">
+                                    <button class="custom-btn btn-3"><span>Read More</span></button>
+                                </a>
+                            </div>
+                        </figcaption>
+                    </figure>
+                </li>
+                {% endfor %}
+            </ul>
+            <ul class="carousel__thumbnails">
+                {% for product in icecream_popularity %}
+                <li>
+                    <label for="slide-{{ forloop.counter0 }}">
+                        <img src="{{ product.photo.url }}"
+                             width="800"
+                             height="450"
+                             alt="Popularity icecream">
+                    </label>
+                </li>
+                {% endfor %}
+            </ul>
+        </div>
+    </div>
+</section>
+<section>
+    <div class="header-h1 my-5">
+        <h1>Самые Дорогие Мороженые</h1>
+    </div>
+    <div class="container my-5">
+        <div class="carousel">
+            <input type="radio" name="slides" checked="checked" id="slide-6">
+            <input type="radio" name="slides" id="slide-7">
+            <input type="radio" name="slides" id="slide-8">
+            <input type="radio" name="slides" id="slide-9">
+            <input type="radio" name="slides" id="slide-10">
+            <input type="radio" name="slides" id="slide-11">
+            <ul class="carousel__slides">
+                {% for product in icecream_expensive %}
+                <li class="carousel__slide">
+                    <figure>
+                        <div>
+                            <img src="{{ product.photo.url }}" width="800" height="450" alt="Popularity icecream">
+                        </div>
+                        <figcaption>
+                            {{ product.name }}
+                            <span class="credit">Цена: {{ product.price }}₽</span>
+                            <div class="frame">
+                                <a href="{% url 'icecream' product.pk %}">
+                                    <button class="custom-btn btn-3"><span>Read More</span></button>
+                                </a>
+                            </div>
+                        </figcaption>
+                    </figure>
+                </li>
+                {% endfor %}
+            </ul>
+            <ul class="carousel__thumbnails">
+                {% for product in icecream_expensive %}
+                <li>
+                    <label for="slide-{{ forloop.counter0|add:'6' }}">
+                        <img src="{{ product.photo.url }}"
+                             width="800"
+                             height="450"
+                             alt="Popularity icecream">
+                    </label>
+                </li>
+                {% endfor %}
+            </ul>
+        </div>
+    </div>
+</section>
+{% endblock %}

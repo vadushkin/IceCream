@@ -1,0 +1,36 @@
+{% extends 'base.html' %}
+
+{% block title %}
+{{ title }}
+{% endblock %}
+
+{% block content %}
+<div class="container my-5">
+    <div class="container">
+        <div class="row row-cols-1 g-5">
+            <div class="col">
+                <div class="product">
+                    <img src="{{ ice_cream.photo.url }}"
+                         class="card-img-top"
+                         alt="{{ ice_cream.name }}">
+                    <div class="card-body">
+                        <h5 class="card-title">
+                            Название: {{ ice_cream.name }}
+                        </h5>
+                        <h5 class="card-text">
+                            Цена: {{ ice_cream.price }}₽
+                        </h5>
+                        <p class="card-text my-5">
+                            Описание: {{ ice_cream.description }}
+                        </p>
+                        <a href="{% url 'cards' %}"
+                           class="btn btn-primary">
+                            Все мороженые
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
